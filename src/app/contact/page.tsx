@@ -1,4 +1,5 @@
 'use client';
+import axios from 'axios';
 import { useForm } from 'react-hook-form';
 
 type FormData = {
@@ -8,12 +9,21 @@ type FormData = {
 };
 
 const ContactPage = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
+    const { register, handleSubmit, reset, formState: { errors } } = useForm<FormData>();
 
-    const onSubmit = (data: FormData) => {
+    const onSubmit = async (data: FormData) => {
         // Handle form submission
         console.log(data);
+        try {
+            const response = await axios.post('/api/contact', data);
+            alert("Message sent successfully");
+        } catch (error) {
+            alert("Failed to send message");
+        }
+        // Reset form fields after submission
+         reset();
     };
+
 
     return (
         <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded shadow">
@@ -31,13 +41,19 @@ const ContactPage = () => {
                     {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>}
                 </div>
                 <div>
-                    <label className="block mb-1 font-medium" htmlFor="email">Gmail</label>
+                    <label className="block mb-1 font-medium" htmlFor="email">Email</label>
                     <input
                         id="email"
                         type="email"
-                        {...register('email', { required: 'Email is required', pattern: { value: /^[\w-.]+@gmail\.com$/, message: 'Enter a valid Gmail address' } })}
+                        {...register('email', {
+                            required: 'Email is required',
+                            pattern: {
+                                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                                message: 'Invalid email address',
+                            },
+                        })}
                         className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
-                        placeholder="yourname@gmail.com"
+                        placeholder="Your email"
                     />
                     {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
                 </div>

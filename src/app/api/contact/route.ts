@@ -13,6 +13,7 @@ export async function POST(request: Request) {
             email,
             message
         });
+        
         const saveMassage = await newMessage.save();
         console.log("New Message Received: ", saveMassage);
         return NextResponse.json({message : "Message received successfully", status: 201, newMessage})  

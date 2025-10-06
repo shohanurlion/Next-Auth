@@ -1,22 +1,25 @@
-import moongoose from "mongoose";
+import mongoose from "mongoose";
 
-const contactSchema = new moongoose.Schema({
+const contactSchema = new mongoose.Schema({
     name: {
-         type: String, 
-         required:[true , "Plz Enter Your Name"]
-            },
+        type: String,
+        required: [true, "Please enter your name"],
+    },
     email: {
-            type: String,
-            required:[true , "Plz Enter Your Email"]
-            },
+        type: String,
+        required: [true, "Please enter your email"],
+    },
     message: {
-            type: String,
-            required:[true , "Plz Enter Your Message"]
-            },
-    createdAt: { 
-            type: Date, 
-            default: Date.now   
-            }
-}); 
-const Contact = moongoose.model.contacts || moongoose.model("contacts", contactSchema);
+        type: String,
+        required: [true, "Please enter your message"],
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now,
+    },
+});
+
+const Contact =
+  mongoose.models.Contact || mongoose.model("Contact", contactSchema);
+
 export default Contact;
