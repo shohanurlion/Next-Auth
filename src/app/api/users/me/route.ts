@@ -4,8 +4,6 @@ import { NextResponse } from "next/server";
 import jwt from 'jsonwebtoken';
 import { getDatafromToken } from "@/helpers/getDatafromToken";
 
-
-
 connect();
 export async function POST(request: Request) {
 const userId = await getDatafromToken(request as any);
