@@ -1,8 +1,8 @@
 import { connect } from "@/dbconfig/dbconfig";
 import User from "@/models/userModels";
 import { NextResponse } from "next/server";
-import bcrypt from 'bcryptjs';
 import { sendEmail } from "@/helpers/mailer";
+import bcrypt from 'bcryptjs';
 
 
 connect();
@@ -10,19 +10,24 @@ export async function POST(request: Request) {
     try {
         const reqBody = await request.json();
         const {username, email ,password} = reqBody;
+        
         //validation
         const user = await User.findOne({email});
         if(user){
             return NextResponse.json({message : "User already exists", status: 400})
         }
-        const hashedPassword = await bcrypt.hash(password, 12);
+        
+        // Hash password directly
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+        
         const newUser = new User({
             username,
             email,
             password: hashedPassword
         });
+        
         const saveUser = await newUser.save();
-        console.log("New User Created: ", saveUser);
 
         //Email send notification
         await sendEmail({email, emailType: "VERIFY", userId: saveUser._id})
@@ -32,4 +37,4 @@ export async function POST(request: Request) {
         console.log(error)
         return NextResponse.json({message: "Internal Server Error", status: 500})
     }
-}          
+}

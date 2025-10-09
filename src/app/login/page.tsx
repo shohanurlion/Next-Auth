@@ -19,8 +19,8 @@ const LoginPage = () => {
 
   const onSubmit = async (data: FormData) => {
     try {
-      await axios.post('/api/users/signup', data);
-      router.push('/');
+      await axios.post('/api/users/login', data);
+      router.push('/profile');
     } catch (error) {
       console.error('Login failed', error);
     }
@@ -69,6 +69,14 @@ const LoginPage = () => {
             {isSubmitting ? 'Logging in...' : 'Login'}
           </button>
         </form>
+        <div className="mt-4 text-center">
+          <a
+            href="/forgot-password"
+            className="text-sm text-blue-600 hover:underline font-medium"
+          >
+            Forgot your password?
+          </a>
+        </div>
         <div className="mt-4 text-center">
           <span className="text-sm text-gray-600">Don't have an account?</span>
           <a

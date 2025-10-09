@@ -20,6 +20,25 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Password Reset System
+
+This application includes a complete password reset system with the following features:
+
+- Forgot password functionality
+- Secure token-based reset flow
+- Email verification with Resend
+- Comprehensive documentation
+
+### Documentation
+
+All aspects of the password reset system are documented in the [docs](docs) directory:
+
+- [Password Reset System Overview](docs/PASSWORD_RESET_SYSTEM.md)
+- [Password Reset Flow Diagram](docs/PASSWORD_RESET_FLOW.md)
+- [File Organization](FILE_ORGANIZATION.md)
+
+All source code files have been thoroughly commented to explain functionality, security considerations, and data flow.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
